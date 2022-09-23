@@ -1,0 +1,5 @@
+name: "Main Branch CodeQL configuration"
+
+queries:
+    #- uses: security-and-quality
+    - uses: ./.github/configurations/owasp-top-ten.qls
