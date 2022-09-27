@@ -84,5 +84,8 @@ jobs:
     #   make bootstrap
     #   make release
 
+    # --------------------------------
+    # This is where the magic happens:
+    # --------------------------------
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
