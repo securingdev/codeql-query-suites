@@ -1,32 +1,41 @@
-# ----------------------------------------------------------
-# Documentation can be found at:
+# -----------------------------------------------------------
+# Query suite documentation can be found at:
 # https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/
-# ----------------------------------------------------------
+# -----------------------------------------------------------
 #
 #
-# ----------------------------------------------------------
-# Complete list of CWE's covered and their Query ID's here:
+# -----------------------------------------------------------
+# A complete list of CWE's covered and their Query ID's here:
 # https://codeql.github.com/codeql-query-help/full-cwe/
-# ----------------------------------------------------------
+# -----------------------------------------------------------
 #
 #
-# ----------------------------------------------------------
+# -----------------------------------------------------------
 # Uncomment If you want to also use existing CodeQL Query Packs
 #- import: codeql-suites/java-security-extended.qls
 #- import: codeql-suites/javascript-security-extended.qls
 #- import: codeql-suites/python-security-extended.qls
 #- import: codeql-suites/csharp-security-extended.qls
 #- import: custom-queries/lower-csrf-protection-disabled.ql
-# ----------------------------------------------------------
+# -----------------------------------------------------------
 #
 #
-# ----------------------------------------------------------
+# -----------------------------------------------------------
 # OWASP Top 10 - Queries for All Languages (sorted alphabetically)
 # 
 # PLEASE NOTE: Problem Severity and Precision are currently
-# commented out starting on line 481. Uncomment to limit your
+# commented out starting on line 30. Uncomment to limit your
 # scans further with these parameters.
-# ----------------------------------------------------------
+# -----------------------------------------------------------
+#- include:
+    #problem.severity:
+    #- medium
+    #- high
+    #- very-high
+    #- critical
+    #precision:
+    #- high
+    #- very-high
 - include:
     id:
     - cpp/access-memory-location-after-end-buffer-strlen
@@ -478,11 +487,3 @@
     - rb/weak-cookie-configuration
     - rb/weak-cryptographic-algorithm
     - rb/xxe
-    #problem.severity:
-    #- medium
-    #- high
-    #- very-high
-    #- critical
-    #precision:
-    #- high
-    #- very-high

@@ -19,6 +19,7 @@ on:
     branches: [ main ]
   schedule:
     - cron: '17 4 * * 5'
+  workflow_dispatch: #allows you to run the action workflow on-demand
 
 jobs:
   analyze:
@@ -33,19 +34,24 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://git.io/codeql-language-support
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    # -----------------------------------------
+    # You may need to set the language version
+    # -----------------------------------------
+    # Example using Java:
     #- name: Use Correct Java Version
     #  uses: actions/setup-java@v1
     #  with:
     #      java-version: 15
 
+    # ------------------------------------------
     # Initializes the CodeQL tools for scanning.
+    # ------------------------------------------
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
       with:
@@ -56,19 +62,24 @@ jobs:
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
+    # --------------------------------------------------------------------------
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
+    # --------------------------------------------------------------------------
     - name: Autobuild
-      if: matrix.language == 'java'  
+      if: |
+          matrix.language == 'csharp' ||
+          matrix.language == 'cpp' ||
+          matrix.language == 'go' ||
+          matrix.language == 'java'
       uses: github/codeql-action/autobuild@v1
 
-    # ℹ️ Command-line programs to run using the OS shell.
-    # 📚 https://git.io/JvXDl
-
-    # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
-    #    and modify them (or add more) to build your code if your project
-    #    uses a compiled language
-
+    # -----------------------------------------------------------------------------
+    #️ If the Autobuild fails above, remove it and perform your application's build 
+    # steps accordingly. It is strongly recommended you consider using CodeQL's 
+    # "Indirect Build tracing" capabilities linked in the documentation below:
+    # https://codeql.github.com/docs/codeql-cli/creating-codeql-databases/#using-indirect-build-tracing
+    # -----------------------------------------------------------------------------
     #- run: |
     #   make bootstrap
     #   make release
